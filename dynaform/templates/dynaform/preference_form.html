@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n crispy_forms_tags %}
+
+{% block style %}
+    {{ block.super }}
+    <style>
+        .form-inline > .form-group > label {
+            justify-content: left;
+            width: 100px;
+        }
+
+        .list-group-item {
+            max-width: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row p-3">
+        <div class="col"></div>
+        <div class="col-12 col-lg-10">
+
+            <p>{% blocktrans %}Ce formulaire à pour but d’aider le comité gastronomique dans la rédaction d’un
+                cahier de
+                charge pour le prestataire cuisine. Le but n’est pas de rentrer dans le détail mais de donnée une idée
+                des
+                aspirations éthique de Dynamobile en recueillant les attentes des membres du CA. En effet, Dynamobile
+                existe
+                depuis plus de 25 ans et ses membres ont rejoint l’association à différents moments et pour différentes
+                raison. Nous essayons donc ici de mesurer la température afin de rédiger un cahier de charge compatible
+                avec
+                la vision du CA.{% endblocktrans %}
+            </p>
+            {% crispy form %}
+        </div>
+        <div class="col"></div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.1/Sortable.min.js"
+            integrity="sha256-9D6DlNlpDfh0C8buQ6NXxrOdLo/wqFUwEB1s70obwfE=" crossorigin="anonymous"></script>
+    <script>
+        Sortable.create($('.list-group').get(0), {
+            group: 'list-1',
+            handle: '.list-group-item'
+        });
+        $("form").submit(function (e) {
+            let val = $.map($('.list-group').children(), function (e) {
+                return $(e).data('value')
+            }).join(',');
+            let name = $('.list-group').attr('name');
+            $(this).append($('<input>', {
+                type: 'hidden',
+                name: name,
+                value: val
+            }));
+            console.log('TOTO')
+        });
+
+    </script>
+{% endblock %}0
