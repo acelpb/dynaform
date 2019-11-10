@@ -15,18 +15,15 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+try:
+    from .local_settings import *
+except ImportError:
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '*d8hx!*l4&a&&66db6g@-8g_zd^3ke(2ndn_ksh5s-(r&&gv(v'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*d8hx!*l4&a&&66db6g@-8g_zd^3ke(2ndn_ksh5s-(r&&gv(v'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    ALLOWED_HOSTS = []
 
 # Application definition
 
