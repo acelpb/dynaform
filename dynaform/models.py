@@ -11,10 +11,10 @@ CRITERIAS = {
 }
 
 ETHIC_CHOICES = (
-    (1, _("pas")),
-    (2, _("annexe")),
-    (3, _('présent')),
-    (4, _('essentiel')),
+    (0, _("pas")),
+    (1, _("secondaire")),
+    (2, _('présent')),
+    (3, _('essentiel')),
 )
 
 
@@ -33,10 +33,21 @@ def validate_ordrered_criterias(value):
 
 # Create your models here.
 class Preference(models.Model):
-    BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
+    BOOL_CHOICES = ((True, 'oui'), (False, 'non'))
     ETHIC_CHOICES = ETHIC_CHOICES
 
     vegetarian = models.BooleanField(choices=BOOL_CHOICES, default='', verbose_name=('végétarien'))
+
+    participative_kitchen = models.IntegerField(
+        choices=(
+            (0, "non"),
+            (1, "secondaire"),
+            (2, "importante"),
+            (3, "essentielle"),
+        ),
+        default=-1,
+        blank=False
+    )
 
     organic = models.IntegerField(choices=ETHIC_CHOICES, default='', blank=False, verbose_name=_('bio'))
     sustainable = models.IntegerField(choices=ETHIC_CHOICES, default='', blank=False, verbose_name=_('durable'))
@@ -49,3 +60,12 @@ class Preference(models.Model):
         ('pme', _('Uniquement des pme')),
         ('all', _('Tous type de structure (p.ex.sodexo)')),
     ), default='')
+
+    price_markup = models.IntegerField(
+        choices=(
+            (10, '10%'),
+            (25, '25%'),
+            (50, '50%'),
+            (100, '50%+'),
+        ), default=-1)
+

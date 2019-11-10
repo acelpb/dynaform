@@ -21,7 +21,14 @@ class PreferenceForm(forms.ModelForm):
             InlineRadios('vegetarian'),
             Div(
                 HTML(_('<label>'
-                       'De quel manière les critères suivants font-ils partient de la philosophie de dynamobile?'
+                       'La participation des Dynamobiliens à la cuisine (épluchage, aide à la préparation) est-elle importante?'
+                       '</label>')),
+                Div(InlineRadios('participative_kitchen'), css_class='form-inline'),
+                css_class='form-group',
+            ),
+            Div(
+                HTML(_('<label>'
+                       'De quelle manière les critères suivants font-ils partie de la philosophie de Dynamobile?'
                        '</label>')),
                 Div(InlineRadios('organic'), css_class='form-inline'),
                 Div(InlineRadios('sustainable'), css_class='form-inline'),
@@ -31,6 +38,15 @@ class PreferenceForm(forms.ModelForm):
                 css_class='form-group',
             ),
             'entity_type',
+            Div(
+                HTML(_('<label>'
+                       'Les chois proposés si-dessus se répercute généralement financièrement; '
+                       'à cahier de charge égal, quel supplément seriez vous prêt à supporter pour faire en sorte que '
+                       'votre préférence soit respectée?'
+                       '</label>')),
+                Div(InlineRadios('price_markup'), css_class='form-inline'),
+                css_class='form-group',
+            ),
             ButtonHolder(
                 Submit('submit', 'Submit', css_class='button white')
             )
@@ -41,12 +57,7 @@ class PreferenceForm(forms.ModelForm):
         model = Preference
         fields = '__all__'
         widgets = {
-            'vegetarian': forms.RadioSelect(
-                choices=(
-                    (True, _('oui')),
-                    (False, _('non')),
-                )
-            ),
+            'vegetarian': forms.RadioSelect(attrs={'autofocus': True}),
             'entity_type': forms.RadioSelect,
             "criteria_order": MyCustomWidget,
             **{criteria: forms.RadioSelect for criteria in CRITERIAS},
@@ -55,4 +66,7 @@ class PreferenceForm(forms.ModelForm):
             'vegetarian': _('Dynamobile doit-il continuer à être végétarien ?'),
             'entity_type': _('Avec quel type de structure acceptez vous de travailler ?'),
             "criteria_order": _('Veuillez mettre dans l’ordre les critères suivants avec le plus important en haut et le moins important en bas.'),
+            "participative_kitchen": "",
+            "price_markup": "",
         }
+

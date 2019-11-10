@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.shortcuts import render
-# from django.contrib import admin
+from django.contrib import admin
 from django.urls import path
 
 import dynaform.views
@@ -27,5 +27,5 @@ def thank_you_view(request):
 urlpatterns = [
     path('', dynaform.views.PreferenceCreateView.as_view()),
     path('thanks/', thank_you_view),
-    #    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 ]
