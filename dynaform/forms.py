@@ -30,24 +30,6 @@ class PreferenceForm(forms.ModelForm):
                 Div(InlineRadios('zero_waste'), css_class='form-inline'),
                 css_class='form-group',
             ),
-            'criteria_order',
-            # Div(
-            #     HTML(
-            #         _(f"""
-            #         <label>
-            #            {_("Placez ses critères par ordre d'importance du plus important (en haut) au moins important en bas.")}
-            #         </label>
-            #         <ul class="list-group" id="demo2">
-            #             {" ".join('<li class="list-group-item" data-value="%s">%s</li>' % (key, val)
-            #                       for key, val in CRITERIAS.items())}
-            #         </ul>
-            #
-            #         """
-            #           )
-            #     ),
-            #     css_class='form-group',
-            # ),
-
             'entity_type',
             ButtonHolder(
                 Submit('submit', 'Submit', css_class='button white')

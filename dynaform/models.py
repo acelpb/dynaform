@@ -44,11 +44,6 @@ class Preference(models.Model):
     local = models.IntegerField(choices=ETHIC_CHOICES, default='', blank=False, verbose_name=_('local'))
     zero_waste = models.IntegerField(choices=ETHIC_CHOICES, default='', blank=False, verbose_name=_('zéro déchet'))
 
-    criteria_order = models.TextField(
-        default="",
-        choices=((k,v) for k, v in CRITERIAS.items()),
-        validators=[validate_ordrered_criterias],)
-
     entity_type = models.TextField(choices=(
         ('social', _('Uniquement des sociétés/associations avec une vocation sociale et / ou sociétale')),
         ('pme', _('Uniquement des pme')),
