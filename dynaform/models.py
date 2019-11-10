@@ -63,6 +63,7 @@ class Preference(models.Model):
 
     price_markup = models.IntegerField(
         choices=(
+            (0, 'aucun'),
             (10, '10%'),
             (25, '25%'),
             (50, '50%'),
