@@ -40,9 +40,10 @@ class PreferenceForm(forms.ModelForm):
             'entity_type',
             Div(
                 HTML(_('<label>'
-                       'Les chois proposés si-dessus se répercute généralement financièrement; '
-                       'à cahier de charge égal, quel supplément seriez vous prêt à supporter pour faire en sorte que '
-                       'votre préférence soit respectée?'
+                       "Les choix proposés ci-dessus se répercutent généralement financièrement; "
+                       "à cahier de charge égal, quel supplément seriez-vous prêt à supporter pour faire en sorte que "
+                       "votre préférence soit respectée sachant que les frais de nourriture de Dynamobile sont de "
+                       "l'ordre de 170 euros / personne?"
                        '</label>')),
                 Div(InlineRadios('price_markup'), css_class='form-inline'),
                 css_class='form-group',
