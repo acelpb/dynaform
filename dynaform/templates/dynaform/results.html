@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <script>{{ plotlyjs|safe }}</script>
+    <div class="row p-3">
+        <div class="col"></div>
+        <div class="col-12 col-lg-10">
+            <h2>Résultats</h2>
+            <div>
+                Bonjour, le formulaire est maintenant terminé.
+                Voici les résumé des données collectées lors de notre enquète.
+                Merci pour votre participation.
+            </div>
+
+            <br />
+            <div>
+                <label>Dynamobile doit-il continuer à être végétarien ?</label>
+                {{ vegetarian |safe}}
+            </div>
+
+            <div>
+                <label>La participation des Dynamobiliens à la cuisine (épluchage, aide à la préparation) est-elle importante?</label>
+                {{ participative_kitchen|safe }}
+            </div>
+            <div>
+                <label>Quels sont les critères les plus important de la philosophie de Dynamobile?</label>
+                {{ values|safe }}
+            </div>
+
+            <div>
+                <label>Avec quel type de structure acceptez vous de travailler ?</label>
+                {{ entity_type|safe }}
+            </div>
+
+            <div>
+                <label>
+                    Les choix proposés ci-dessus se répercutent généralement financièrement;
+                    à cahier de charge égal, quel supplément seriez-vous prêt à supporter pour faire en sorte que
+                    votre préférence soit respectée sachant que les frais de nourriture de Dynamobile sont de
+                    l'ordre de 170 euros / personne?
+                </label>
+                {{ price_markup|safe }}
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+{% endblock %}

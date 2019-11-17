@@ -35,16 +35,30 @@ def validate_ordrered_criterias(value):
 class Preference(models.Model):
     BOOL_CHOICES = ((True, 'oui'), (False, 'non'))
     ETHIC_CHOICES = ETHIC_CHOICES
+    ETHIC_CHOICES_F = (
+        (0, "non"),
+        (1, "secondaire"),
+        (2, "importante"),
+        (3, "essentielle"),
+    )
+    ENTITY_CHOICES = (
+        ('social', _('Uniquement des sociétés/associations avec une vocation sociale et / ou sociétale')),
+        ('pme', _('Uniquement des pme')),
+        ('all', _('Tous type de structure (p.ex.sodexo)')),
+    )
+
+    INCREASE_CHOICES = (
+        (0, 'aucun'),
+        (10, '10%'),
+        (25, '25%'),
+        (50, '50%'),
+        (100, '50%+'),
+    )
 
     vegetarian = models.BooleanField(choices=BOOL_CHOICES, default='', verbose_name=('végétarien'))
 
     participative_kitchen = models.IntegerField(
-        choices=(
-            (0, "non"),
-            (1, "secondaire"),
-            (2, "importante"),
-            (3, "essentielle"),
-        ),
+        choices=ETHIC_CHOICES_F,
         default=-1,
         blank=False
     )
@@ -55,18 +69,7 @@ class Preference(models.Model):
     local = models.IntegerField(choices=ETHIC_CHOICES, default='', blank=False, verbose_name=_('local'))
     zero_waste = models.IntegerField(choices=ETHIC_CHOICES, default='', blank=False, verbose_name=_('zéro déchet'))
 
-    entity_type = models.TextField(choices=(
-        ('social', _('Uniquement des sociétés/associations avec une vocation sociale et / ou sociétale')),
-        ('pme', _('Uniquement des pme')),
-        ('all', _('Tous type de structure (p.ex.sodexo)')),
-    ), default='')
+    entity_type = models.TextField(choices=ENTITY_CHOICES, default='')
 
     price_markup = models.IntegerField(
-        choices=(
-            (0, 'aucun'),
-            (10, '10%'),
-            (25, '25%'),
-            (50, '50%'),
-            (100, '50%+'),
-        ), default=-1)
-
+        choices=INCREASE_CHOICES, default=-1)

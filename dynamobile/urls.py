@@ -25,7 +25,8 @@ def thank_you_view(request):
 
 
 urlpatterns = [
-    path('', dynaform.views.PreferenceCreateView.as_view()),
-    path('thanks/', thank_you_view),
+    # path('', dynaform.views.PreferenceCreateView.as_view()),
+    # path('thanks/', thank_you_view),
+    path('', dynaform.views.Results.as_view()),
     path('admin/', admin.site.urls),
 ]
