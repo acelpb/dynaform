@@ -17,18 +17,29 @@
 {% block content %}
     <div class="m-0 w-100 h-100 mosaic" id="mosaic">
         {% for object in object_list %}
-            {% thumbnail object.image "x480" as im %}
-                <div class="item withImage" width="{{ im.width }}"
-                     height="{{ im.height }}"
-                     style="background-color: #E9780C;background-image: url('{{ im.url }}');"
-                     data-high-res-background-image-url="{{ object.image.url }}">
-                    <div class="overlay">
-                        <div class="texts">
-                            <h1>{{ object.copyright_holder }}</h1>
+            {% if object.image %}
+                {% thumbnail object.image "x480" as im %}
+                    <div class="item withImage" width="{{ im.width }}"
+                         height="{{ im.height }}"
+                         style="background-color: #E9780C;background-image: url('{{ im.url }}');"
+                         data-high-res-background-image-url="{{ object.image.url }}">
+                        <div class="overlay">
+                            <div class="texts">
+                                <h1>{{ object.message }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                {% endthumbnail %}
+            {% else %}
+                <div class="item" width="480" height="480"
+                     style="width: 480px;height: 100%;background-color: #E9780C;">
+                    <div class="overlay" style="opacity: 1;">
+                        <div class="texts text-justify" style="position: relative; margin: auto; background: none; color: #fff;">
+                            <h1>{{ object.message }}</h1>
                         </div>
                     </div>
                 </div>
-            {% endthumbnail %}
+            {% endif %}
         {% endfor %}
     </div>
 
