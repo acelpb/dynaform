@@ -12,24 +12,14 @@ class MessageForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             "image",
+            "message",
             "copyright_holder",
             ButtonHolder(Submit("submit", "Submit", css_class="button white")),
         )
 
     class Meta:
         model = Message
-        fields = ("image", "copyright_holder")
+        fields = ("image", "message", "copyright_holder")
         widgets = {
             "copyright_holder": forms.TextInput,
-        }
-        labels = {
-            "vegetarian": _("Dynamobile doit-il continuer à être végétarien ?"),
-            "entity_type": _(
-                "Avec quel type de structure acceptez vous de travailler ?"
-            ),
-            "criteria_order": _(
-                "Veuillez mettre dans l’ordre les critères suivants avec le plus important en haut et le moins important en bas."
-            ),
-            "participative_kitchen": "",
-            "price_markup": "",
         }

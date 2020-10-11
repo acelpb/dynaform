@@ -1,9 +1,19 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+
+{% block title %}
+    <title>Contribuer au 25 ans de dynamobile</title>
+{% endblock %}
+
 {% block content %}
     <div class="row  h-100">
         <div class="col"></div>
         <div class="col-12 col-lg-8 col-md-10 h-100">
+            <div class="m-5">
+                Les images soumises via ce formulaire ne seront utilisée que pour la page anniversaire des 25 ans de dynamobile.<br>
+                En soumettant l'image vous nous assurez que toutes les personnes présentes sur la photo ont donné leur accord quand à l'utilisation de leur image.<br>
+                Nous demandons à ce que vous renseigniez le nom de l'auteur de la photo (personne physique ou morale). Ce nom ne sera utilisé qu'en case de litige quand à l'utilisation de la photo ou pour en demander le retrait.
+            </div>
             {% crispy form %}
 
         </div>
