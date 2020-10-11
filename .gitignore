@@ -58,6 +58,8 @@ venv
 # Static
 collected_static
 
+static
+
 # Models
 data
 

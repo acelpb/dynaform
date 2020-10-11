@@ -13,20 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.shortcuts import render
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.shortcuts import render
 from django.urls import path
 
-import dynaform.views
+import twenty_five.views
 
 
 def thank_you_view(request):
-    return render(request, template_name='dynaform/thanks.html')
+    return render(request, template_name="dynaform/thanks.html")
 
 
 urlpatterns = [
-    # path('', dynaform.views.PreferenceCreateView.as_view()),
-    # path('thanks/', thank_you_view),
-    path('', dynaform.views.Results.as_view()),
-    path('admin/', admin.site.urls),
-]
+    path("", twenty_five.views.DisplayMessagesView.as_view()),
+    path("upload", twenty_five.views.UploadMessageView.as_view()),
+    path("admin/", admin.site.urls),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

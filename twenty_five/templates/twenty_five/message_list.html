@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static thumbnail %}
+{% block style %}
+    <style>
+        .upload-button {
+            background-color: #31B0D5;
+            color: white;
+            padding: 20px;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 4px;
+            right: 10px;
+        }
+    </style>
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="m-0 w-100 h-100" id="myMosaic" >
+        {% for object in object_list %}
+
+            {% thumbnail object.image "480" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" data-high-res-image-src="{{ object.image.url }}" />
+            {% endthumbnail %}
+        {% empty %}
+            <div class="col"></div>
+            <div class="col-12 col-lg-8 col-md-10">
+                <h1>Hello, it looks like you are the first one here.</h1>
+                <h1>Why don't you upload something?</h1>
+            </div>
+            <div class="col"></div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript"
+            src="{% static "jquery.mosaic.min.js" %}"></script>
+    <link rel="stylesheet" type="text/css"
+          href="{% static "jquery.mosaic.min.css" %}"/>
+    <script>
+        $('#myMosaic').Mosaic({
+            maxRowHeight: 480,
+            refitOnResize: true,
+            refitOnResizeDelay: false,
+            defaultAspectRatio: 1,
+            maxRowHeightPolicy: 'tail',
+            highResImagesWidthThreshold: 850,
+            responsiveWidthThreshold: 500
+        });
+    </script>
+{% endblock %}
