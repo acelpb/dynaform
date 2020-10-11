@@ -127,4 +127,4 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 CRISPY_FAIL_SILENTLY = not DEBUG
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
-MEDIA_URL = "/media/"
+MEDIA_URL = "/uploads/"
