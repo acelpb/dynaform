@@ -1,14 +1,10 @@
 {% extends "base.html" %}
 {% load static thumbnail %}
 {% block style %}
+    {{ block.super }}
     <style>
-        .upload-button {
-            background-color: #31B0D5;
-            color: white;
-            padding: 20px;
-            border-radius: 50%;
-            position: fixed;
-            bottom: 4px;
+        #fixedbutton {
+        {#position: fixed;#} top: 10px;
             right: 10px;
         }
     </style>
@@ -17,22 +13,28 @@
 {% endblock %}
 
 {% block content %}
-    <div class="m-0 w-100 h-100" id="myMosaic" >
+    <div class="m-0 w-100 h-100 mosaic" id="mosaic">
         {% for object in object_list %}
-
-            {% thumbnail object.image "480" as im %}
-                <img src="{{ im.url }}" width="{{ im.width }}" data-high-res-image-src="{{ object.image.url }}" />
+            {% thumbnail object.image "x480" as im %}
+                <div class="item withImage" width="{{ im.width }}"
+                     height="{{ im.height }}"
+                     style="background-color: #E9780C;background-image: url('{{ im.url }}');"
+                     data-high-res-background-image-url="{{ object.image.url }}">
+                    <div class="overlay">
+                        <div class="texts"><h1>{{ object.copyright_holder }}</h1>
+                            <h2>From unsplash.com</h2></div>
+                    </div>
+                </div>
             {% endthumbnail %}
-        {% empty %}
-            <div class="col"></div>
-            <div class="col-12 col-lg-8 col-md-10">
-                <h1>Hello, it looks like you are the first one here.</h1>
-                <h1>Why don't you upload something?</h1>
-            </div>
-            <div class="col"></div>
         {% endfor %}
-
     </div>
+
+    <a href="{% url "upload" %}">
+        <div id="fixedbutton" class="position-fixed btn btn-warning">
+            <strong>+</strong>
+        </div>
+    </a>
+
 {% endblock %}
 
 {% block scripts %}
@@ -42,13 +44,13 @@
     <link rel="stylesheet" type="text/css"
           href="{% static "jquery.mosaic.min.css" %}"/>
     <script>
-        $('#myMosaic').Mosaic({
+        $('#mosaic').Mosaic({
             maxRowHeight: 480,
             refitOnResize: true,
             refitOnResizeDelay: false,
             defaultAspectRatio: 1,
             maxRowHeightPolicy: 'tail',
-            highResImagesWidthThreshold: 850,
+            highResImagesWidthThreshold: 800,
             responsiveWidthThreshold: 500
         });
     </script>
