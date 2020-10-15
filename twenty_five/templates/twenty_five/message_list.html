@@ -2,12 +2,8 @@
 {% load static thumbnail %}
 {% block style %}
     {{ block.super }}
-    <style>
-        #fixedbutton {
-            top: 10px;
-            right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css"
+          href="{% static "jquery.mosaic.min.css" %}"/>
 {% endblock %}
 
 {% block title %}
@@ -17,11 +13,16 @@
 {% block content %}
     <div class="p-3 row flex-row-reverse">
         <div id="info" class="my-5 col-12 col-md-4 col-lg-3 collapse show">
-            <button class="btn btn-primary" type="button" data-toggle="collapse"
-                    data-target="#info" aria-expanded="false"
-                    aria-controls="info">
-                Button with data-target
-            </button>
+            <div class="row flex-row-reverse">
+                <button class="btn btn-primary" type="button"
+                        data-toggle="collapse"
+                        data-target="#info" aria-expanded="false"
+                        aria-controls="info">
+                    <strong>X</strong>
+                </button>
+                <div class="col flex-grow-1"></div>
+            </div>
+
             Cher·ère·s ami·e·s cyclistes,
             <br>
             <br>
@@ -73,9 +74,8 @@
     {{ block.super }}
     <script type="text/javascript"
             src="{% static "jquery.mosaic.min.js" %}"></script>
-    <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="{% static "jquery.mosaic.min.css" %}"/>
+    <script src="{% static "infinite-scroll.pkgd.min.js" %}"></script>
+
     <script>
         $('#mosaic').Mosaic({
             maxRowHeight: 480,
@@ -88,10 +88,22 @@
         });
         var mosaic = $('#mosaic').infiniteScroll({
             // options
-            path: '/?page={% templatetag openvariable %}#{% templatetag closevariable %}',
+            path: '?page={% templatetag openvariable %}#{% templatetag closevariable %}',
             append: '.item',
             history: false, outlayer: mosaic,
             status: '.page-load-status'
         });
+        mosaic.on('load.infiniteScroll', function (event, response) {
+            // get posts from response
+            var $posts = $(response).find('.post');
+            // append posts after images loaded
+            $posts.imagesLoaded(function () {
+                mosaic.infiniteScroll('appendItems', $posts);
+                mosaic.resize();
+            });
+        });
+        $('#info').on('hidden.bs.collapse', function () {
+            mosaic.resize();
+        })
     </script>
 {% endblock %}
