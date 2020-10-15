@@ -4,7 +4,7 @@
     {{ block.super }}
     <style>
         #fixedbutton {
-        {#position: fixed;#} top: 10px;
+            top: 10px;
             right: 10px;
         }
     </style>
@@ -15,8 +15,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row flex-row-reverse">
-        <div class="mt-5 col-12 col-md-4 col-lg-3 ">
+    <div class="p-3 row flex-row-reverse">
+        <div id="info" class="my-5 col-12 col-md-4 col-lg-3 collapse show">
+            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                    data-target="#info" aria-expanded="false"
+                    aria-controls="info">
+                Button with data-target
+            </button>
             Cher·ère·s ami·e·s cyclistes,
             <br>
             <br>
@@ -41,7 +46,8 @@
             D'autre part, cette année, nous aurions rencontré Laïla et Colienne,
             nos nouvelles cuisinières. Bonne nouvelle quand même, si vous le
             souhaitez, vous pouvez découvrir leurs délicieux petits plats à
-            emporter en allant sur leur site : <a href="https://originelles.be/">https://originelles.be/</a>.
+            emporter en allant sur leur site : <a
+                href="https://originelles.be/">https://originelles.be/</a>.
             Une manière sympathique de les soutenir.
             <br>
             <br>
@@ -51,9 +57,12 @@
             commençant par prendre soin de vous et des autres.
             <br>
             <br>
-            <a href="{% url "upload" %}"><div class="btn btn-warning">Ajouter un message ou une image</div></a>
+            <a href="{% url "upload" %}">
+                <div class="btn btn-warning">Ajouter un message ou une image
+                </div>
+            </a>
         </div>
-        <div class="col-12 col-md-8 col-lg-9 mosaic" id="mosaic">
+        <div class="col mosaic overflow-auto" id="mosaic">
             {% include 'twenty_five/simple_message_list.html' %}
         </div>
     </div>
@@ -64,6 +73,7 @@
     {{ block.super }}
     <script type="text/javascript"
             src="{% static "jquery.mosaic.min.js" %}"></script>
+    <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="{% static "jquery.mosaic.min.css" %}"/>
     <script>
@@ -75,6 +85,13 @@
             maxRowHeightPolicy: 'tail',
             highResImagesWidthThreshold: 800,
             responsiveWidthThreshold: 500
+        });
+        var mosaic = $('#mosaic').infiniteScroll({
+            // options
+            path: '/?page={% templatetag openvariable %}#{% templatetag closevariable %}',
+            append: '.item',
+            history: false, outlayer: mosaic,
+            status: '.page-load-status'
         });
     </script>
 {% endblock %}

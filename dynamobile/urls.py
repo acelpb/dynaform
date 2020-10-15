@@ -27,7 +27,8 @@ def thank_you_view(request):
 
 
 urlpatterns = [
-    path("", twenty_five.views.DisplayMessagesView.as_view(), name="twenty_five_years"),
-    path("upload", twenty_five.views.UploadMessageView.as_view(), name="upload"),
+    path("", twenty_five.views.TemporaryView.as_view()),
+    path("hidden/", twenty_five.views.DisplayMessagesView.as_view(), name="twenty_five_years"),
+    path("upload/", twenty_five.views.UploadMessageView.as_view(), name="upload"),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
