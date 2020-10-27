@@ -41,10 +41,6 @@
             l'esprit « Dynamobile ».
             <br>
             <br>
-            <a href="{% url "upload" %}">
-                <div class="btn btn-warning">Ajouter un message ou une image
-                </div>
-            </a>
         </div>
         <div class="col mosaic overflow-auto" id="mosaic">
             {% include 'twenty_five/simple_message_list.html' %}
@@ -57,8 +53,6 @@
     {{ block.super }}
     <script type="text/javascript"
             src="{% static "jquery.mosaic.min.js" %}"></script>
-    <script src="{% static "infinite-scroll.pkgd.min.js" %}"></script>
-
     <script>
         $('#mosaic').Mosaic({
             maxRowHeight: 480,
@@ -69,24 +63,8 @@
             highResImagesWidthThreshold: 800,
             responsiveWidthThreshold: 500
         });
-        var mosaic = $('#mosaic').infiniteScroll({
-            // options
-            path: '?page={% templatetag openvariable %}#{% templatetag closevariable %}',
-            append: '.item',
-            history: false, outlayer: mosaic,
-            status: '.page-load-status'
-        });
-        mosaic.on('load.infiniteScroll', function (event, response) {
-            // get posts from response
-            var $posts = $(response).find('.post');
-            // append posts after images loaded
-            $posts.imagesLoaded(function () {
-                mosaic.infiniteScroll('appendItems', $posts);
-                mosaic.resize();
-            });
-        });
         $('#info').on('hidden.bs.collapse', function () {
-            mosaic.resize();
+            $('#mosaic').resize();
         })
     </script>
 {% endblock %}
